@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import generate_roadmap_api, get_roadmap
+from .views import complete_task, get_tasks, get_streak
 
 urlpatterns = [
-    path('generate/', generate_roadmap_api),
-    path('', get_roadmap),
+    path('', get_tasks),
+    path('complete/', complete_task),
+    path('streak/', get_streak),
 ]

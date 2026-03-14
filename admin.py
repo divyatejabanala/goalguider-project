@@ -1,32 +1,11 @@
-# from django.contrib import admin
-
-# # Register your models here.
-# from django.contrib import admin
-# from .models import Roadmap, RoadmapStep, Task
-
-# admin.site.register(Roadmap)
-# admin.site.register(RoadmapStep)
-# admin.site.register(Task)
-
 from django.contrib import admin
-from .models import Roadmap, RoadmapStep
+from .models import Task, Streak
+
+admin.site.register(Task)
+admin.site.register(Streak)
 
 
-class RoadmapStepInline(admin.TabularInline):
-    model = RoadmapStep
-    extra = 0
-
-
-@admin.register(Roadmap)
-class RoadmapAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "created_at")
-    search_fields = ("user__username",)
-    inlines = [RoadmapStepInline]
-
-
-@admin.register(RoadmapStep)
-class RoadmapStepAdmin(admin.ModelAdmin):
-    list_display = ("id", "roadmap", "title")
-    list_filter = ("roadmap",)
-
-
+# @admin.register(Task)
+# class TaskAdmin(admin.ModelAdmin):
+#     list_display = ("id", "step", "title", "is_completed")
+#     list_filter = ("is_completed",)
