@@ -1,11 +1,7 @@
 from django.contrib import admin
-from .models import Task, Streak
+from .models import UserProfile
 
-admin.site.register(Task)
-admin.site.register(Streak)
-
-
-# @admin.register(Task)
-# class TaskAdmin(admin.ModelAdmin):
-#     list_display = ("id", "step", "title", "is_completed")
-#     list_filter = ("is_completed",)
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ("user", "current_status", "career_goal")
+    search_fields = ("user__username", "user__email")
