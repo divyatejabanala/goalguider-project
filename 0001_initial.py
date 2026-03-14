@@ -10,28 +10,30 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('roadmap', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Roadmap',
+            name='Streak',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('goal', models.CharField(max_length=100)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('current_streak', models.IntegerField(default=0)),
+                ('best_streak', models.IntegerField(default=0)),
+                ('last_completed_date', models.DateField(blank=True, null=True)),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
-            name='RoadmapStep',
+            name='Task',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('step_number', models.IntegerField()),
                 ('title', models.CharField(max_length=200)),
-                ('description', models.TextField()),
-                ('duration', models.CharField(max_length=50)),
-                ('roadmap', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='steps', to='roadmap.roadmap')),
+                ('is_completed', models.BooleanField(default=False)),
+                ('completed_at', models.DateTimeField(blank=True, null=True)),
+                ('step', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roadmap.roadmapstep')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
